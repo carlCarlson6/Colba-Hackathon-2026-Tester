@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({ 
         url: "https://colba-hackathon-2026-tester.vercel.app/api",
         body: body.payload,
-        queue: "6ba4d784-c66a-4c58-bab7-f5ba1d312b52",
+        queueId: "6ba4d784-c66a-4c58-bab7-f5ba1d312b52",
         method: "POST",
       }),
     });
