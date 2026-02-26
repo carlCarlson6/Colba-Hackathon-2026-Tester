@@ -3,7 +3,7 @@ import { db } from "~/server/db";
 import { requestLoopsTable } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const body = await req.json();
 
   await db.insert(requestLoopsTable).values({ id: body.id }).run();
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   return NextResponse.json({ message: "process ended" });
 }
 
-export async function DELETE(req: NextRequest, res: NextResponse) {
+export async function DELETE(req: NextRequest) {
   const body = await req.json();
 
   await db.delete(requestLoopsTable).where(eq(requestLoopsTable.id, body.id)).run();
