@@ -1,9 +1,15 @@
+import { randomInt } from "crypto";
 import { desc } from "drizzle-orm";
 import { db } from "~/server/db";
 import { recievedRequestsTable } from "~/server/db/schema";
 
 export async function POST(req: Request) {
   const body = await req.text();
+
+  if (randomInt(0, 5) === 0) { 
+    await new Promise((resolve) => setTimeout(resolve, randomInt(1000, 15000)));
+  }
+  
 
   await db.insert(recievedRequestsTable).values({
     requestText: body,
