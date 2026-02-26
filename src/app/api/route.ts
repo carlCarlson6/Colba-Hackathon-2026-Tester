@@ -3,8 +3,6 @@ import { db } from "~/server/db";
 import { recievedRequestsTable } from "~/server/db/schema";
 
 export async function POST(req: Request) {
-  await new Promise((resolve) => setTimeout(resolve, 15000));
-  
   const body = await req.text();
 
   await db.insert(recievedRequestsTable).values({
