@@ -3,12 +3,14 @@ import { db } from "~/server/db";
 import { recievedRequestsTable } from "~/server/db/schema";
 
 export async function POST(req: Request) {
+  await new Promise((resolve) => setTimeout(resolve, 15000));
+  
   const body = await req.text();
 
   await db.insert(recievedRequestsTable).values({
     requestText: body,
   }).run();
-  
+
   return new Response("received!", {
     status: 200,
     headers: {
@@ -25,4 +27,15 @@ export async function GET() {
     .all();
 
   return Response.json(requests);
+}
+
+export async function DELETE() {
+  await db.delete(recievedRequestsTable).run();
+
+  return new Response("deleted!", {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }

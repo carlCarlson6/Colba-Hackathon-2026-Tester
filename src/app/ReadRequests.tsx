@@ -7,6 +7,7 @@ export default function ReadRequests() {
     createdAt: string;
   }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isClearing, setIsClearing] = useState(false);
 
   const loadRequests = async () => {
     setIsLoading(true);
@@ -28,18 +29,37 @@ export default function ReadRequests() {
     void loadRequests();
   }, []);
 
+  const clearRequests = async () => {
+    setIsClearing(true);
+    await fetch("/api", {
+      method: "DELETE",
+    });
+    setRequests([]);
+    setIsClearing(false);
+  };
+
   return (
     <section className="rounded-lg border border-white p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">Read Request</h2>
-        <button
-          type="button"
-          onClick={loadRequests}
-          disabled={isLoading}
-          className="rounded-lg border border-white px-3 py-1 text-sm font-semibold transition-colors enabled:hover:bg-white enabled:hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          Refetch
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={loadRequests}
+            disabled={isLoading || isClearing}
+            className="rounded-lg border border-white px-3 py-1 text-sm font-semibold transition-colors enabled:hover:bg-white enabled:hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Refetch
+          </button>
+          <button
+            type="button"
+            onClick={clearRequests}
+            disabled={isLoading || isClearing}
+            className="rounded-lg border border-white px-3 py-1 text-sm font-semibold transition-colors enabled:hover:bg-white enabled:hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isClearing ? "Clearing..." : "Clear"}
+          </button>
+        </div>
       </div>
       <div className="overflow-x-auto rounded-lg border border-white">
         <table className="w-full border-collapse text-left font-mono text-sm">
