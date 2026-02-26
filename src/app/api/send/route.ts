@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     fetch(body.destinationUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: body.payload,
+      body: JSON.stringify(body.payload),
     });
   }
 

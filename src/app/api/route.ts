@@ -10,7 +10,6 @@ export async function POST(req: Request) {
     await new Promise((resolve) => setTimeout(resolve, randomInt(1000, 15000)));
   }
   
-
   await db.insert(recievedRequestsTable).values({
     requestText: body,
   }).run();
