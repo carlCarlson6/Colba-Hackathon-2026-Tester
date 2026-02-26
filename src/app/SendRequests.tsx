@@ -29,9 +29,9 @@ export default function SendRequests() {
       fetch("/api/send", { 
         method: "POST",
         body: JSON.stringify({ 
-          "id": "request-loop-id",
-          "destinationUrl": destinationUrl.trim(),
-          "payload": requestText.trim(),
+          id: "request-loop-id",
+          destinationUrl: destinationUrl.trim(),
+          payload: requestText.trim(),
         }),
        });
       setIsSending(true);
