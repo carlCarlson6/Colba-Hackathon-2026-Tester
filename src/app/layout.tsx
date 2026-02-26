@@ -19,7 +19,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>{children}</body>
+      <body className="p-8">
+        <header className="mb-8 text-center text-xl font-semibold tracking-wide">
+          COLBA HACKATHON TESTER 2026
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
