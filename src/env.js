@@ -7,6 +7,8 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
+    TURSO_AUTH_TOKEN: z.string(),
+    TURSO_DATABASE_URL: z.string().url(),
     NODE_ENV: z.enum(["development", "test", "production"]),
   },
 
@@ -25,7 +27,8 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+    TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
+    TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

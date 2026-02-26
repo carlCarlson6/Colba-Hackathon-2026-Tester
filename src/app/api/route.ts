@@ -1,3 +1,28 @@
-export function POST() {
-  return new Response("Hello, World!");
+import { desc } from "drizzle-orm";
+import { db } from "~/server/db";
+import { recievedRequestsTable } from "~/server/db/schema";
+
+export async function POST(req: Request) {
+  const body = await req.text();
+
+  await db.insert(recievedRequestsTable).values({
+    requestText: body,
+  }).run();
+  
+  return new Response("received!", {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
+export async function GET() {
+  const requests = await db
+    .select()
+    .from(recievedRequestsTable)
+    .orderBy(desc(recievedRequestsTable.createdAt))
+    .all();
+
+  return Response.json(requests);
 }
